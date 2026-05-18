@@ -1,0 +1,40 @@
+from abc import ABC, abstractmethod
+
+class Pago(ABC):
+    
+    @abstractmethod
+    def procesar_pago(self, monto):
+        """Método abstracto: Define EL QUÉ, pero no el CÓMO"""
+        pass
+
+class TarjetaCredito(Pago):
+    def __init__(self, numero_tarjeta, titular):
+        self.__numero_tarjeta = numero_tarjeta 
+        self.titular = titular  # Este es 'public'
+        
+    def procesar_pago(self, monto):
+        ultimos_digitos = self.__numero_tarjeta[-4:]
+        print(f" Tarjeta de {self.titular} (terminada en {ultimos_digitos}):")
+        print(f"   Enviando solicitud cifrada al banco por ${monto}...")
+        print("   ¡Transacción autorizada exitosamente!")
+
+class PayPal(Pago):
+    def __init__(self, email):
+        self._email = email 
+        
+    def procesar_pago(self, monto):
+        print(f" Conectando con los servidores de PayPal para el usuario {self._email}...")
+        print(f"   Verificando saldo disponible para cubrir ${monto}...")
+        print("   ¡Pago procesado con éxito a través de PayPal!")
+
+
+pago_visa = TarjetaCredito("1234-5678-9012-3456", "Alex Torres")
+pago_paypal = PayPal("alex@email.com")
+
+print("--- PROCESANDO COMPRA EN LA TIENDA ---")
+pago_visa.procesar_pago(150.00)
+
+print("\n--- PROCESANDO OTRA COMPRA ---")
+pago_paypal.procesar_pago(45.50)
+
+del pago_visa 
