@@ -1,0 +1,40 @@
+from abc import ABC, abstractmethod
+
+class Vehiculo(ABC):
+    
+    @abstractmethod
+    def mover(self):
+        """Método que todo vehículo debe implementar para moverse"""
+        pass
+
+    @abstractmethod
+    def detener(self):
+        """Método que todo vehículo debe implementar para detenerse"""
+        pass
+
+
+class Coche(Vehiculo):
+    def mover(self):
+        print("El coche está acelerando usando su motor de combustión.")
+        
+    def detener(self):
+        print("El coche presiona los frenos hidráulicos para detenerse.")
+
+class Bicicleta(Vehiculo):
+    def mover(self):
+        print("La bicicleta avanza porque el ciclista está pedaleando.")
+        
+    def detener(self):
+        print("La bicicleta aprieta los frenos de disco en las ruedas.")
+
+
+mi_coche = Coche()
+mi_bici = Bicicleta()
+
+print("--- Probando el Coche ---")
+mi_coche.mover()
+mi_coche.detener()
+
+print("\n--- Probando la Bicicleta ---")
+mi_bici.mover()
+mi_bici.detener()
