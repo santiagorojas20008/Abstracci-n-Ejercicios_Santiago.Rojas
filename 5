@@ -1,0 +1,57 @@
+from abc import ABC, abstractmethod
+
+
+class Empleado(ABC):
+    def __init__(self, nombre, id_empleado):
+        self.nombre = nombre        
+        self.__id_empleado = id_empleado
+
+    @abstractmethod
+    def calcular_sueldo(self):
+        """Método abstracto: Cada tipo de contrato calculará el sueldo a su manera"""
+        pass
+
+
+
+class EmpleadoPorHora(Empleado):
+    def __init__(self, nombre, id_empleado, horas_trabajadas, tarifa_hora):
+        super().__init__(nombre, id_empleado)
+        
+        self.__horas_trabajadas = horas_trabajadas
+        self.__tarifa_hora = tarifa_hora
+
+    def calcular_sueldo(self):
+
+        return self.__horas_trabajadas * self.__tarifa_hora
+
+
+class EmpleadoFijo(Empleado):
+    def __init__(self, nombre, id_empleado, sueldo_mensual):
+        super().__init__(nombre, id_empleado)
+
+        self.__sueldo_mensual = sueldo_mensual
+
+    def calcular_sueldo(self):
+
+        return self.__sueldo_mensual
+
+
+
+
+
+juan = EmpleadoPorHora("Juan Pérez", "E001", horas_trabajadas=160, tarifa_hora=15)
+maria = EmpleadoFijo("María López", "E002", sueldo_mensual=3000)
+
+
+nomina_empresa = [juan, maria]
+
+print("--- PROCESANDO NÓMINA MENSUAL ---")
+
+for empleado in nomina_empresa:
+  
+    sueldo_final = empleado.calcular_sueldo()
+    print(f"Empleado: {empleado.nombre} | Sueldo a depositar: ${sueldo_final:.2f}")
+
+print("-" * 40)
+
+del nomina_empresa
