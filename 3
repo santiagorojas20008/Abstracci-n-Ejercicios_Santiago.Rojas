@@ -1,0 +1,50 @@
+from abc import ABC, abstractmethod
+import math
+
+
+class Figura(ABC):
+    
+    @abstractmethod
+    def calcular_area(self):
+        """Método abstracto. Cada figura sabrá cómo calcular su propia área."""
+        pass
+
+
+
+class Circulo(Figura):
+    def __init__(self, radio):
+    
+        if radio < 0:
+            raise ValueError("El radio no puede ser negativo.")
+        self.__radio = radio 
+
+    def calcular_area(self):
+       
+        return math.pi * (self.__radio ** 2)
+
+class Rectangulo(Figura):
+    def __init__(self, base, altura):
+       
+        if base < 0 or altura < 0:
+            raise ValueError("Las dimensiones no pueden ser negativas.")
+        self.__base = base     
+        self.__altura = altura  
+
+    def calcular_area(self):
+
+        return self.__base * self.__altura
+
+
+
+mi_circulo = Circulo(5
+mi_rectangulo = Rectangulo(4, 6
+
+.
+lista_figuras = [mi_circulo, mi_rectangulo]
+
+print("--- CALCULANDO ÁREAS EN LOTE ---")
+
+for figura in lista_figuras:
+   
+    area = figura.calcular_area()
+    print(f"El área de la figura ({type(figura).__name__}) es: {area:.2f}")
