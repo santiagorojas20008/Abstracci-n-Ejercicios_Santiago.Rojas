@@ -1,0 +1,55 @@
+from abc import ABC, abstractmethod
+
+class Notificacion(ABC):
+    
+    @abstractmethod
+    def enviar(self, mensaje):
+        """Método abstracto: Define la acción común que todos deben cumplir"""
+        pass
+
+
+
+class Email(Notificacion):
+    def __init__(self, correo_destino):
+      
+        self.__correo_destino = correo_destino 
+
+    def enviar(self, mensaje):
+ 
+        print(f" Enviando correo electrónico a: {self.__correo_destino}")
+        print(f"   [Contenido]: {mensaje}")
+        print("   -> ¡Email enviado con éxito!")
+
+
+class SMS(Notificacion):
+    def __init__(self, numero_telefono):
+        
+        self.__numero_telefono = numero_telefono 
+
+    def enviar(self, mensaje):
+    
+        print(f" Enviando SMS al número: {self.__numero_telefono}")
+        print(f"   [Texto]: {mensaje}")
+        print("   -> ¡SMS entregado al operador de telefonía!")
+
+
+
+
+
+alerta_email = Email("arquitecto@software.com")
+alerta_sms = SMS("+541198765432")
+
+
+canales_comunicacion = [alerta_email, alerta_sms]
+
+mensaje_urgente = "Alerta del Sistema: Intento de acceso no autorizado detectado."
+
+print("--- DESPACHADOR UNIFORME DE NOTIFICACIONES ---")
+
+for canal in canales_comunicacion:
+
+    canal.enviar(mensaje_urgente)
+    print("-" * 45)
+
+
+canales_comunicacion.clear()
